@@ -96,6 +96,7 @@ categories_dificulty = {
                    "Argentina", "Algeria", "Poland", "Sudan", "Uganda", "Morocco", "Saudi Arabia"],
     "Countries3": ["Peru", "Iran", "Malaysia", "Angola", "Ghana", "Yemen", "Nepal", "Venezuela", "Tanzania", "Myanmar", "Uzbekistan"],
 }
+
 '''
 # Print the number of words in each category
 for category, words in categories.items():
