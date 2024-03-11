@@ -1,12 +1,14 @@
 import random  # Import the random module for generating random choices
 import tkinter as tk  # Import the tkinter module for creating GUI
-from tkinter import messagebox  # Import the messagebox class from tkinter for displaying messages
+from pydoc import text
 
 # Import styles module which presumably contains custom styles
 from styles import *
+from tkinter import messagebox  # Import the messagebox class from tkinter for displaying messages
 
 # Assuming you have a file named word_bank.py with categories defined in it
 from word_bank import categories
+
 
 # Class for the word guessing game, inheriting from tk.Tk
 class WordGuessingGame(tk.Tk):
@@ -15,7 +17,7 @@ class WordGuessingGame(tk.Tk):
         self.title("Pineappleeeeeeeeeee")  # Set the title of the window
         self.geometry("1280x720")  # Set the initial size of the window
         self.configure(background=BACKGROUND_COLOR_PRIMARY)  # Set the background color of the window
-        self.iconbitmap("Pineapple.ico")  # Set the icon for the window
+        # self.iconbitmap("Pineapple.ico")  # Set the icon for the window
         self.current_frame = None  # Initialize a variable to hold the current frame
         self.word = ""  # Initialize a variable to hold the word to be guessed
         self.guessed_letters = []  # Initialize a list to hold guessed letters
@@ -69,7 +71,16 @@ class WordGuessingGame(tk.Tk):
         self.current_frame = tk.Frame(self, background=BACKGROUND_COLOR_SECONDARY)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
         self.word = random.choice(categories[category])  # Choose a random word from the selected category
-        display_word = "_" * len(self.word)  # Create a string of underscores to represent the word
+        self.word = self.word.upper() # Uppercase letters
+        print(self.word) # Testing
+        display_word_origional = self.word # Word before underscores
+        display_word = "" # Set blank variable
+        for x in display_word_origional: # Cycle through letters
+            if x == " ":
+                display_word = display_word + " " # Display space as a gap
+            else:
+                display_word = display_word + "_" # Display letters as an underscore
+        print(display_word) # Testing
         word_label = tk.Label(self.current_frame, text=f"Guess the Word: {display_word}", font=LABEL_FONT,
                               background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget to display the word
         word_label.pack()  # Pack the label into the frame
@@ -88,7 +99,7 @@ class WordGuessingGame(tk.Tk):
         alphabet_frame.pack(pady=10)  # Pack the frame into the window with some padding
         alphabet_rows = 2  # Number of rows for alphabet buttons
         alphabet_columns = 13  # Number of columns for alphabet buttons
-        for char in "abcdefghijklmnopqrstuvwxyz":  # Iterate through the alphabet
+        for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":  # Iterate through the alphabet
             button = tk.Button(alphabet_frame, text=char, font=BUTTON_FONT,
                                command=lambda c=char: self.handle_alphabet_button(c, word_label,
                                                                                   tries_label,
@@ -97,8 +108,8 @@ class WordGuessingGame(tk.Tk):
                                bg=BUTTON_BACKGROUND_COLOR,
                                activebackground="green",  # Change color when the button is clicked
                                activeforeground="white")  # Change text color when the button is clicked
-            row_index = (ord(char) - ord('a')) // alphabet_columns  # Calculate row index
-            col_index = (ord(char) - ord('a')) % alphabet_columns  # Calculate column index
+            row_index = (ord(char) - ord('A')) // alphabet_columns  # Calculate row index
+            col_index = (ord(char) - ord('A')) % alphabet_columns  # Calculate column index
             button.grid(row=row_index, column=col_index, padx=5, pady=5)  # Grid the button with specified padding
 
     # Method to handle alphabet button clicks
@@ -117,7 +128,7 @@ class WordGuessingGame(tk.Tk):
                 self.after(2000, self.show_start_menu)  # Wait for 2 seconds before showing the start menu
                 return  # Return from the method
         else:  # If the guessed letter is in the word
-            new_display = "".join([letter if letter in self.guessed_letters else "_" for letter in self.word])  # Update the display
+            new_display = "".join([letter if letter in self.guessed_letters or letter == " " else "_" for letter in self.word])  # Update the display
             word_label.config(text=f"Guess the Word: {new_display}")  # Update the word label
             if new_display == self.word:  # Check if the word has been completely guessed
                 congrats_label.pack()  # Show congrats message
