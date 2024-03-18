@@ -45,16 +45,16 @@ while True:
 
     # if mouse is hovered on a button it changes to lighter shade
     if width - 140 <= mouse[0] <= width and 0 <= mouse[1] <= 40:
-        pygame.draw.rect(screen, button_light, [width - 140, 0, 140, 40])
+        pygame.draw.rect(screen, BUTTON_BACKGROUND_COLOR, [width - 140, 0, 140, 40])
 
     else:
-        pygame.draw.rect(screen, button_dark, [width - 140, 0, 140, 40])
+        pygame.draw.rect(screen, ACTIVE_BUTTON_BACKGROUND_COLOR, [width - 140, 0, 140, 40])
 
     # Draw minimise button
     if width - 2 * button_width <= mouse[0] <= width - button_width and 0 <= mouse[1] <= button_height:
-        pygame.draw.rect(screen, button_light, [width - 2 * button_width, 0, button_width, button_height])
+        pygame.draw.rect(screen, BUTTON_BACKGROUND_COLOR, [width - 2 * button_width, 0, button_width, button_height])
     else:
-        pygame.draw.rect(screen, button_dark, [width - 2 * button_width, 0, button_width, button_height])
+        pygame.draw.rect(screen, ACTIVE_BUTTON_BACKGROUND_COLOR, [width - 2 * button_width, 0, button_width, button_height])
 
     # Calculate the center of the buttons
     button_center_x_quit = width - button_width + button_width // 2
