@@ -5,7 +5,7 @@ from pydoc import text
 # Import styles module which presumably contains custom styles
 from styles import *
 from tkinter import messagebox  # Import the messagebox class from tkinter for displaying messages
-
+from PIL import Image, ImageTk
 # Assuming you have a file named word_bank.py with categories defined in it
 from word_bank import categories
 
@@ -16,7 +16,7 @@ class WordGuessingGame(tk.Tk):
         self.title("Pineapple")  # Set the title of the window
         self.geometry("800x600")  # Set an initial size (optional)
         self.fullscreen()  # Call the method to make the window fullscreen
-        self.configure(background=BACKGROUND_COLOR_PRIMARY)  # Set the background color of the window
+        self.configure(background=YELLOW)  # Set the background color of the window
         # self.iconbitmap("Pineapple.ico")  # Set the icon for the window
         self.current_frame = None  # Initialize a variable to hold the current frame
         self.word = ""  # Initialize a variable to hold the word to be guessed
@@ -32,11 +32,11 @@ class WordGuessingGame(tk.Tk):
         """Display the start menu where the player can start the game."""
         self.reset_game_state()  # Call a method to reset game state
         self.destroy_current_frame()  # Call a method to destroy the current frame
-        self.current_frame = tk.Frame(self, background=BACKGROUND_COLOR_PRIMARY)  # Create a new frame
+        self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
 
         label = tk.Label(self.current_frame, text="Welcome to ...Still Figuring out the name...", font=HEADER_FONT,
-                         background=BACKGROUND_COLOR_PRIMARY)  # Create a label widget
+                         background=YELLOW)  # Create a label widget
         label.pack()  # Pack the label into the frame
         start_button = tk.Button(self.current_frame, text="Start Game", font=BUTTON_FONT, command=self.start_game)  # Create a button widget
         start_button.pack()  # Pack the button into the frame
@@ -55,10 +55,10 @@ class WordGuessingGame(tk.Tk):
     def start_game(self):
         """Start the game by displaying categories to choose from."""
         self.destroy_current_frame()  # Call a method to destroy the current frame
-        self.current_frame = tk.Frame(self, background=BACKGROUND_COLOR_SECONDARY)  # Create a new frame
+        self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
         label = tk.Label(self.current_frame, text="Choose a category:", font=LABEL_FONT,
-                         background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget
+                         background=YELLOW)  # Create a label widget
         label.pack()  # Pack the label into the frame
         for category in categories:  # Iterate through categories
             button = tk.Button(self.current_frame, text=category, font=BUTTON_FONT,
@@ -76,7 +76,7 @@ class WordGuessingGame(tk.Tk):
         """Choose a word from the selected category and start the guessing game."""
 
         self.destroy_current_frame()  # Call a method to destroy the current frame
-        self.current_frame = tk.Frame(self, background=BACKGROUND_COLOR_SECONDARY)  # Create a new frame
+        self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()
         # self.current_frame.place(relx=0.5, rely=0.5, anchor="center")
 
@@ -86,16 +86,39 @@ class WordGuessingGame(tk.Tk):
         # image = tk.PhotoImage(file="background.png")
         # canvas.create_image(0, 0, image=image, anchor=NW)
 
-        # # Load background image
-        # bg_img = tk.PhotoImage(file="beach2.png")
-        # print("Background Image Loaded:", bg_img)
-        # # Create a Canvas widget to display the background image
-        # canvas = tk.Canvas(self.current_frame, width=800, height=600)
-        # canvas.place(relx=0, rely=0, relwidth=1, relheight=1)  # Place the canvas to cover the whole frame
-        # print("Canvas created and placed")
-        # # Place the background image on the canvas
-        # canvas.create_image(0, 0, anchor="nw", image=bg_img)
-        # print("Background Image placed on Canvas")
+        # try:
+        #     # Load background image
+        #     bg_img = tk.PhotoImage(file="background.png")
+        #     print("Background Image Loaded:", bg_img)
+        #
+        #     # Create a Canvas widget to display the background image
+        #     canvas = tk.Canvas(self.current_frame, width=1920, height=1080)
+        #     canvas.pack(fill="both", expand=True)
+        #     print("Canvas created and placed")
+        #
+        #     # Place the background image on the canvas
+        #     canvas.create_image(0, 0, image=bg_img, anchor="nw")
+        #     print("Background Image placed on Canvas")
+        #
+        # except tk.TclError as e:
+        #     print("Error loading background image:", e)
+
+        try:
+            # Open the image using PIL
+            pil_image = Image.open("background.png")
+
+            # Convert the PIL image to a Tkinter-compatible format
+            tk_image = ImageTk.PhotoImage(pil_image)
+
+            # Create a label widget to display the image
+            img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
+            img_label.image = tk_image  # Keep a reference to prevent garbage collection
+
+            # Place the image label at the desired position
+            img_label.grid(row=1, column=0, columnspan=2, pady=5)
+
+        except Exception as e:
+            print("Error loading image:", e)
 
         self.word = random.choice(categories[category])  # Choose a random word from the selected category
         self.word = self.word.upper() # Uppercase letters
@@ -109,22 +132,22 @@ class WordGuessingGame(tk.Tk):
                 display_word = display_word + "_" # Display letters as an underscore
         print(display_word) # Testing
         word_label = tk.Label(self.current_frame, text=f"Guess the Word: {display_word}", font=LABEL_FONT,
-                              background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget to display the word
+                              background=YELLOW)  # Create a label widget to display the word
         # word_label.pack()  # Pack the label into the frame
         word_label.grid(row=2, column=0, columnspan=2, pady=5)
 
         tries_label = tk.Label(self.current_frame, text=f"Tries Left: {self.tries}", font=LABEL_FONT,
-                               background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget to display the number of tries
+                               background=YELLOW)  # Create a label widget to display the number of tries
         # tries_label.pack()  # Pack the label into the frame
         tries_label.grid(row=3, column=0, columnspan=2, pady=5)
 
         incorrect_guess_label = tk.Label(self.current_frame, text="Incorrect guesses:", font=LABEL_FONT,
-                                         background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget to display incorrect guesses
+                                         background=YELLOW)  # Create a label widget to display incorrect guesses
         # incorrect_guess_label.pack()  # Pack the label into the frame
         # incorrect_guess_label.grid(row=2, column=0, columnspan=2, pady=5)
 
         congrats_label = tk.Label(self.current_frame, text="Congratulations! You guessed the word!", font=LABEL_FONT,
-                                  background=BACKGROUND_COLOR_SECONDARY)  # Create a label widget for congratulatory message
+                                  background=YELLOW)  # Create a label widget for congratulatory message
         # congrats_label.grid(row=3, column=0, columnspan=2, pady=5)
 
 
@@ -137,7 +160,7 @@ class WordGuessingGame(tk.Tk):
         # quit_button.pack(side="top", anchor="ne", pady=1)  # Place the "Quit" button to the left of the "Back" button
         quit_button.grid(row=5, column=1, sticky="ne", pady=5)
 
-        alphabet_frame = tk.Frame(self.current_frame, background=BACKGROUND_COLOR_SECONDARY)  # Create a new frame for alphabet buttons
+        alphabet_frame = tk.Frame(self.current_frame, background=YELLOW)  # Create a new frame for alphabet buttons
         # alphabet_frame.pack(pady=10)  # Pack the frame into the window with some padding
         alphabet_frame.grid(row=4, column=0)
 
@@ -158,9 +181,15 @@ class WordGuessingGame(tk.Tk):
             button.grid(row=row_index, column=col_index, padx=5, pady=5)  # Grid the button with specified padding
 
         # Load image file
-        img = tk.PhotoImage(file='pineapple.png')
+        img = Image.open('pineapple.png')
+        img = img.convert("RGBA")
+        # canvas = tk.Canvas(self.current_frame, bg="blue")
+        # canvas.grid(row=1, column=0, columnspan=2, pady=5)
+        # canvas.create_image(0, 0, image=img, anchor=tk.NW)
+
+        img = ImageTk.PhotoImage(img)
         # Create a label widget to display the image
-        img_label = tk.Label(self.current_frame, image=img, background=BACKGROUND_COLOR_PRIMARY)
+        img_label = tk.Label(self.current_frame, image=img, background=CYAN)
         img_label.image = img
         img_label.grid(row=1, column=0, columnspan=2, pady=5)  # Place the image at desired position
 

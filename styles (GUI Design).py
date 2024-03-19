@@ -2,8 +2,15 @@ from PIL import Image, ImageTk  # Import necessary modules for handling images
 import tkinter as tk  # Import tkinter library for GUI
 
 # Color constants for the GUI
-BACKGROUND_COLOR_PRIMARY = "#fffa6a"  # Primary background color
-BACKGROUND_COLOR_SECONDARY = "#fffa6a"  # Secondary background color
+# BACKGROUND_COLOR_PRIMARY = "#fffa6a"  # Primary background color
+# BACKGROUND_COLOR_SECONDARY = "#fffa6a"  # Secondary background color
+RED = "#ff8150"
+ORANGE = "#ffc139"
+YELLOW = "#ffdf00"
+GREEN = "#5dffcf"
+CYAN = "#3ef1fc"
+BLUE = "#4ec9ff"
+
 BUTTON_BACKGROUND_COLOR = "white"  # Background color for buttons
 TEXT_COLOR = "black"  # Color for text elements
 ACTIVE_BUTTON_BACKGROUND_COLOR = "green"  # Background color for active buttons
