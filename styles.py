@@ -25,6 +25,7 @@ LABEL_FONT = ("Calibri", 30)  # Font for labels
 BUTTON_WIDTH = 5  # Width of buttons
 BUTTON_HEIGHT = 3  # Height of buttons
 
+
 # Function to center a widget on the screen
 def center_widget(widget):
     widget.update_idletasks()  # Update widget to get correct size

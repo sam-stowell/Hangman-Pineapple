@@ -1,5 +1,5 @@
 import pygame
-from Config import *
+from styles import *
 pygame.init()
 pygame.font.init()
 
