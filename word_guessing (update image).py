@@ -34,8 +34,26 @@ class WordGuessingGame(tk.Tk):
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
 
-        label = tk.Label(self.current_frame, text="Welcome to ...Still Figuring out the name...", font=HEADER_FONT,
-                         background=YELLOW)  # Create a label widget
+        try:
+            # Open the image using PIL
+            pil_image = Image.open("menubackground.png")
+
+            # Convert the PIL image to a Tkinter-compatible format
+            tk_image = ImageTk.PhotoImage(pil_image)
+
+            # Create a label widget to display the image
+            img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
+            img_label.image = tk_image  # Keep a reference to prevent garbage collection
+
+            # Place the image label at the desired position
+            img_label.pack()
+
+        except Exception as e:
+            print("Error loading image:", e)
+
+        label = tk.Label(self.current_frame,
+                         # text="Welcome to PINEAPPLE - A hangman alternative",
+                         font=HEADER_FONT, background=YELLOW)  # Create a label widget
         label.pack()  # Pack the label into the frame
         start_button = tk.Button(self.current_frame, text="Start Game", font=BUTTON_FONT, command=self.start_game)  # Create a button widget
         start_button.pack()  # Pack the button into the frame
@@ -53,19 +71,42 @@ class WordGuessingGame(tk.Tk):
 
     # Method to start the game
     def start_game(self):
+
+
         """Start the game by displaying categories to choose from."""
         self.destroy_current_frame()  # Call a method to destroy the current frame
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
-        label = tk.Label(self.current_frame, text="Choose a category:", font=LABEL_FONT,
-                         background=YELLOW)  # Create a label widget
+
+        try:
+            # Open the image using PIL
+            pil_image = Image.open("menubackground.png")
+
+            # Convert the PIL image to a Tkinter-compatible format
+            tk_image = ImageTk.PhotoImage(pil_image)
+
+            # Create a label widget to display the image
+            img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
+            img_label.image = tk_image  # Keep a reference to prevent garbage collection
+
+            # Place the image label at the desired position
+            img_label.pack(side="top")
+
+        except Exception as e:
+            print("Error loading image:", e)
+
+        label = tk.Label(self.current_frame,
+                         # text="Choose a category:",
+                         font=LABEL_FONT, background=YELLOW)  # Create a label widget
         label.pack()  # Pack the label into the frame
+        category_columns = 5
+
         for category in categories:  # Iterate through categories
-            button = tk.Button(self.current_frame, text=category, font=BUTTON_FONT,
-                               command=lambda c=category: self.choose_word(c))  # Create a button widget for each category
-            button.pack(pady=5)  # Pack the button into the frame with some padding
+            button = tk.Button(self.current_frame, text=category, font=BUTTON_FONT, command=lambda c=category: self.choose_word(c))  # Create a button widget for each category
+            button.pack(side="left")  # Pack the button into the frame with some padding
+
         back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT, command=self.show_start_menu)  # Create a button widget
-        back_button.pack(side="top", anchor="nw", pady=10)  # Pack the button into the frame with specified positioning
+        back_button.pack(side="bottom")  # Pack the button into the frame with specified positioning
         self.current_frame.place(relx=0.5, rely=0.5, anchor="center")
         tries_count = 0
 

@@ -1,7 +1,6 @@
 import random  # Import the random module for generating random choices
 import tkinter as tk  # Import the tkinter module for creating GUI
 from pydoc import text
-
 # Import styles module which presumably contains custom styles
 from styles import *
 from tkinter import messagebox  # Import the messagebox class from tkinter for displaying messages
@@ -67,6 +66,7 @@ class WordGuessingGame(tk.Tk):
         back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT, command=self.show_start_menu)  # Create a button widget
         back_button.pack(side="top", anchor="nw", pady=10)  # Pack the button into the frame with specified positioning
         self.current_frame.place(relx=0.5, rely=0.5, anchor="center")
+        tries_count = 0
 
 
 
