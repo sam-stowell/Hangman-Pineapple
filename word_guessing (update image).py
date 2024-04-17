@@ -8,25 +8,33 @@ from PIL import Image, ImageTk
 # Assuming you have a file named word_bank.py with categories defined in it
 from word_bank import categories
 
+# Define difficulty levels
+Difficulty_Levels = ["Easy", "Medium", "Hard"]
 # Class for the word guessing game, inheriting from tk.Tk
 class WordGuessingGame(tk.Tk):
     def __init__(self):
         super().__init__()  # Call the constructor of the superclass
         self.title("Pineapple")  # Set the title of the window
-        self.geometry("800x600")  # Set an initial size (optional)
+        self.geometry("1280x720")  # Set an initial size (optional)
         self.fullscreen()  # Call the method to make the window fullscreen
         self.configure(background=YELLOW)  # Set the background color of the window
-        # self.iconbitmap("Pineapple.ico")  # Set the icon for the window
+        #self.iconbitmap("Pineapple.ico")  # Set the icon for the window
         self.current_frame = None  # Initialize a variable to hold the current frame
         self.word = ""  # Initialize a variable to hold the word to be guessed
         self.guessed_letters = []  #start game Initialize a list to hold guessed letters
         self.tries = 7  # Initialize the number of tries allowed
         self.show_start_menu()  # Call a method to display the start menu
 
+
     def fullscreen(self):
         self.attributes('-fullscreen', True)  # Set the window to fullscreen
-    # Method to display the start menu
+        self.bind("<Escape>", self.exit_fullscreen)  # Escape key to exit fullscreen mode
 
+    def exit_fullscreen(self, event=None):
+        """Exit fullscreen mode."""
+        self.attributes('-fullscreen', False)  # Set fullscreen attribute to False
+
+    # Method to display the start menu
     def show_start_menu(self):
         """Display the start menu where the player can start the game."""
         self.reset_game_state()  # Call a method to reset game state
@@ -34,7 +42,7 @@ class WordGuessingGame(tk.Tk):
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
 
-        try:
+        """try:
             # Open the image using PIL
             pil_image = Image.open("menubackground.png")
 
@@ -49,7 +57,7 @@ class WordGuessingGame(tk.Tk):
             img_label.pack()
 
         except Exception as e:
-            print("Error loading image:", e)
+            print("Error loading image:", e)"""
 
         label = tk.Label(self.current_frame,
                          # text="Welcome to PINEAPPLE - A hangman alternative",
@@ -71,29 +79,29 @@ class WordGuessingGame(tk.Tk):
 
     # Method to start the game
     def start_game(self):
-
-
         """Start the game by displaying categories to choose from."""
         self.destroy_current_frame()  # Call a method to destroy the current frame
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
+        # Start the game by displaying the difficulty level selection screen.
+        self.show_difficulty_level()  # Call a method to display the difficulty level selection screen
 
-        try:
-            # Open the image using PIL
-            pil_image = Image.open("menubackground.png")
+        """try:
+                    # Open the image using PIL
+                    pil_image = Image.open("menubackground.png")
 
-            # Convert the PIL image to a Tkinter-compatible format
-            tk_image = ImageTk.PhotoImage(pil_image)
+                    # Convert the PIL image to a Tkinter-compatible format
+                    tk_image = ImageTk.PhotoImage(pil_image)
 
-            # Create a label widget to display the image
-            img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
-            img_label.image = tk_image  # Keep a reference to prevent garbage collection
+                    # Create a label widget to display the image
+                    img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
+                    img_label.image = tk_image  # Keep a reference to prevent garbage collection
 
-            # Place the image label at the desired position
-            img_label.pack(side="top")
+                    # Place the image label at the desired position
+                    img_label.pack()
 
         except Exception as e:
-            print("Error loading image:", e)
+            print("Error loading image:", e)"""
 
         label = tk.Label(self.current_frame,
                          # text="Choose a category:",
@@ -110,7 +118,50 @@ class WordGuessingGame(tk.Tk):
         self.current_frame.place(relx=0.5, rely=0.5, anchor="center")
         tries_count = 0
 
+    # Method to display the difficulty level selection screen
+    def show_difficulty_level(self):
+        """Display the difficulty level selection screen."""
+        self.destroy_current_frame()  # Call a method to destroy the current frame
+        self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
+        self.current_frame.pack()  # Pack the frame into the window
+        label = tk.Label(self.current_frame, text="Choose a difficulty level:", font=LABEL_FONT,
+                         background=YELLOW)  # Create a label widget
+        label.grid(row=0, column=0, columnspan=2, pady=10)  # Place the label in the grid
+        row_offset = 1  # Offset for placing buttons
+        for level in Difficulty_Levels:  # Iterate through difficulty levels
+            button = tk.Button(self.current_frame, text=level, font=BUTTON_FONT,
+                               command=lambda l=level: self.set_difficulty_level(
+                                   l))  # Create a button widget for each level
+            button.grid(row=row_offset, column=0, columnspan=2, pady=5)  # Place the button in the grid
+            row_offset += 1  # Increment row offset for next button
+        back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT,
+                                command=self.show_start_menu)  # Create a button widget
+        back_button.grid(row=row_offset, column=0, columnspan=2, pady=10, sticky = "sw")  # Place the button in the grid
+        center_widget(self.current_frame)  # Call a method to center the frame in the window
 
+    def set_difficulty_level(self, level):
+        """Set the difficulty level chosen by the user."""
+        self.difficulty_level = level
+        self.show_category_selection()  # Proceed to category selection
+
+    # Method to display the category selection screen
+    def show_category_selection(self):
+        """Display the category selection screen."""
+        self.destroy_current_frame()  # Call a method to destroy the current frame
+        self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
+        self.current_frame.pack()  # Pack the frame into the window
+        label = tk.Label(self.current_frame, text="Choose a category:", font=LABEL_FONT,
+                         background=YELLOW)  # Create a label widget
+        label.pack()  # Pack the label into the frame
+        for category in categories:  # Iterate through categories
+            button = tk.Button(self.current_frame, text=category, font=BUTTON_FONT,
+                               command=lambda c=category: self.choose_word(
+                                   c))  # Create a button widget for each category
+            button.pack(pady=5)  # Pack the button into the frame with some padding
+        back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT,
+                                command=self.show_difficulty_level)  # Create a button widget
+        back_button.pack(side="top", anchor="nw", pady=10)  # Pack the button into the frame with specified positioning
+        center_widget(self.current_frame)  # Call a method to center the frame in the window
 
 
     # Method to choose a word from a category
@@ -145,7 +196,7 @@ class WordGuessingGame(tk.Tk):
         # except tk.TclError as e:
         #     print("Error loading background image:", e)
 
-        try:
+        """try:
             # Open the image using PIL
             pil_image = Image.open("background.png")
 
@@ -160,7 +211,11 @@ class WordGuessingGame(tk.Tk):
             img_label.grid(row=1, column=0, columnspan=2, pady=5)
 
         except Exception as e:
-            print("Error loading image:", e)
+            print("Error loading image:", e)"""
+
+        # Choose a random word from the selected category
+        self.word = random.choice(categories[category][self.difficulty_level])
+        self.word = self.word.upper() # Uppercase Letters
 
         self.word = random.choice(categories[category])  # Choose a random word from the selected category
         self.word = self.word.upper() # Uppercase letters
@@ -222,7 +277,14 @@ class WordGuessingGame(tk.Tk):
             col_index = (ord(char) - ord('A')) % alphabet_columns  # Calculate column index
             button.grid(row=row_index, column=col_index, padx=5, pady=5)  # Grid the button with specified padding
 
-        # Load image file
+        # Button to go back to the category selection screen
+        back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT,
+                            command=self.show_category_selection)
+        back_button.pack(side="top", anchor="nw", pady=10)
+        center_widget(self.current_frame)  # Center the frame in the window
+
+
+        """# Load image file
         img = Image.open('pineapple.png')
         img = img.convert("RGBA")
         # canvas = tk.Canvas(self.current_frame, bg="blue")
@@ -233,10 +295,7 @@ class WordGuessingGame(tk.Tk):
         # Create a label widget to display the image
         img_label = tk.Label(self.current_frame, image=img, background=CYAN)
         img_label.image = img
-        img_label.grid(row=1, column=0, columnspan=2, pady=5)  # Place the image at desired position
-
-
-
+        img_label.grid(row=1, column=0, columnspan=2, pady=5)  # Place the image at desired position"""
 
         # Method to handle alphabet button clicks
     def handle_alphabet_button(self, char, word_label, tries_label, incorrect_guess_label, congrats_label):
@@ -275,7 +334,7 @@ class WordGuessingGame(tk.Tk):
         """Quit the game."""
         self.destroy()  # Call destroy method to close the window
 
-    def next_image(self):
+    """def next_image(self):
         if self.tries >= 0:
             from PIL import Image, ImageTk
             # Load image file
@@ -292,7 +351,7 @@ class WordGuessingGame(tk.Tk):
             img_label.image = img
             img_label.grid(row=1, column=0, columnspan=2, pady=5)  # Place the image at desired position
         else:
-            print("end")
+            print("end")"""
 
 # Check if the script is being run directly
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
-# from PIL import Image, ImageTk  # Import necessary modules for handling images
-# import tkinter as tk  # Import tkinter library for GUI
+from PIL import Image, ImageTk  # Import necessary modules for handling images
+import tkinter as tk  # Import tkinter library for GUI
 
 # Color constants for the GUI
 # BACKGROUND_COLOR_PRIMARY = "#fffa6a"  # Primary background color
