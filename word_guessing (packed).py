@@ -14,6 +14,7 @@ from word_bank import categories
 
 # Define difficulty levels
 Difficulty_Levels = ["Easy", "Medium", "Hard"]
+
 # Class for the word guessing game, inheriting from tk.Tk
 class WordGuessingGame(tk.Tk):
     def __init__(self):
@@ -120,20 +121,26 @@ class WordGuessingGame(tk.Tk):
         self.destroy_current_frame()  # Call a method to destroy the current frame
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
         self.current_frame.pack()  # Pack the frame into the window
-        label = tk.Label(self.current_frame, text="Choose a difficulty level:", font=LABEL_FONT,
-                         background=YELLOW)  # Create a label widget
+        label = tk.Label(self.current_frame, text="Choose a difficulty level:", font=LABEL_FONT, background=YELLOW)  # Create a label widget
         label.grid(row=0, column=0, columnspan=2, pady=10)  # Place the label in the grid
         row_offset = 1  # Offset for placing buttons
-        for level in Difficulty_Levels:  # Iterate through difficulty levels
+
+        for level in Difficulty_Levels:
             button = tk.Button(self.current_frame, text=level, font=BUTTON_FONT,
-                               command=lambda l=level: self.set_difficulty_level(
-                                   l))  # Create a button widget for each level
-            button.grid(row=row_offset, column=0, columnspan=2, pady=5)  # Place the button in the grid
-            row_offset += 1  # Increment row offset for next button
-        back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT,
-                                command=self.show_start_menu)  # Create a button widget
-        back_button.grid(row=row_offset, column=0, columnspan=2, pady=10, sticky = "sw")  # Place the button in the grid
-        center_widget(self.current_frame)  # Call a method to center the frame in the window
+                               command=lambda l=level: self.set_difficulty_level(l))
+            if level == "Easy":
+                button.config(bg="green")
+            elif level == "Medium":
+                button.config(bg="yellow")
+            elif level == "Hard":
+                button.config(bg="red")
+            button.grid(row=row_offset, column=0, columnspan=2, pady=5)
+            row_offset += 1
+
+            # Create a back button
+        back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT, command=self.show_start_menu)
+        back_button.grid(row=row_offset, column=0, columnspan=2, pady=10, sticky="sw")
+        center_widget(self.current_frame)
 
     def set_difficulty_level(self, level):
         """Set the difficulty level chosen by the user."""

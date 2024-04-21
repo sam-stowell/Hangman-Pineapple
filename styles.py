@@ -11,6 +11,8 @@ GREEN = "#5dffcf"
 CYAN = "#3ef1fc"
 BLUE = "#4ec9ff"
 
+
+
 BUTTON_BACKGROUND_COLOR = "white"  # Background color for buttons
 TEXT_COLOR = "black"  # Color for text elements
 ACTIVE_BUTTON_BACKGROUND_COLOR = "green"  # Background color for active buttons
