@@ -20,7 +20,7 @@ class WordGuessingGame(tk.Tk):
         super().__init__()  # Call the constructor of the superclass
         self.title("Pineapple")  # Set the title of the window
         self.geometry("1280x720")  # Set an initial size (optional)
-        # self.fullscreen()  # Call the method to make the window fullscreen
+        self.fullscreen()  # Call the method to make the window fullscreen
         self.configure(background=YELLOW)  # Set the background color of the window
         #self.iconbitmap("Pineapple.ico")  # Set the icon for the window
         self.current_frame = None  # Initialize a variable to hold the current frame
@@ -234,12 +234,12 @@ class WordGuessingGame(tk.Tk):
         incorrect_guess_label = tk.Label(self.current_frame, text="Incorrect guesses:", font=LABEL_FONT,
                                          background=YELLOW)  # Create a label widget to display incorrect guesses
         # incorrect_guess_label.pack()  # Pack the label into the frame
-        incorrect_guess_label.grid(row=2, column=0, columnspan=2, pady=5)
+        # incorrect_guess_label.grid(row=2, column=0, columnspan=2, pady=5)
 
 
         back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT, command=self.show_start_menu)
         # back_button.pack(side="top", anchor="ne", pady=1)  # Place the "Back" button at the top right
-        back_button.grid(row=4, column=19, sticky="ne", pady=5)
+        back_button.grid(row=4, column=0, sticky="nw", pady=5)
 
         congrats_label = tk.Label(self.current_frame, text="Congratulations! You guessed the word!", font=LABEL_FONT, background=YELLOW)
         congrats_label.grid(row=1, column=0)
@@ -247,11 +247,11 @@ class WordGuessingGame(tk.Tk):
 
         quit_button = tk.Button(self.current_frame, text="Quit", font=BUTTON_FONT, command=self.quit)
         # quit_button.pack(side="top", anchor="ne", pady=1)  # Place the "Quit" button to the left of the "Back" button
-        quit_button.grid(row=4, column=20, sticky="ne", pady=5)
+        quit_button.grid(row=4, column=0, sticky="ne", pady=5)
 
         alphabet_frame = tk.Frame(self.current_frame, background=YELLOW)  # Create a new frame for alphabet buttons
         # alphabet_frame.pack(pady=10)  # Pack the frame into the window with some padding
-        alphabet_frame.grid(row=2, column=0)
+        alphabet_frame.grid(row=3, column=0)
 
         alphabet_rows = 2  # Number of rows for alphabet buttons
         alphabet_columns = 13  # Number of columns for alphabet buttons
@@ -269,11 +269,7 @@ class WordGuessingGame(tk.Tk):
             col_index = (ord(char) - ord('A')) % alphabet_columns  # Calculate column index
             button.grid(row=row_index, column=col_index, padx=5, pady=5)  # Grid the button with specified padding
 
-        # # Button to go back to the category selection screen
-        # back_button = tk.Button(self.current_frame, text="Back", font=BUTTON_FONT,
-        #                     command=self.show_category_selection)
-        # back_button.grid(row=4, column=0, columnspan=2, pady=5)
-        center_widget(self.current_frame)  # Center the frame in the window
+        # center_widget(self.current_frame)  # Center the frame in the window
 
 
 
@@ -284,7 +280,7 @@ class WordGuessingGame(tk.Tk):
             # Create a label widget to display the image
             img_label = tk.Label(self.current_frame, image=img, background='cyan')
             img_label.image = img  # Keep a reference to prevent garbage collection
-            img_label.grid(row=3, column=0, pady=5)  # Place the image at desired position
+            img_label.grid(row=2, column=0, pady=5)  # Place the image at desired position
         except Exception as e:
             print("An error occurred:", e)
 
@@ -340,7 +336,7 @@ class WordGuessingGame(tk.Tk):
             # Create a label widget to display the image
             img_label = tk.Label(self.current_frame, image=img, background=CYAN)
             img_label.image = img
-            img_label.grid(row=1, column=0, columnspan=2, pady=5)  # Place the image at desired position
+            img_label.grid(row=2, column=0, columnspan=2, pady=5)  # Place the image at desired position
         else:
             print("end")
 

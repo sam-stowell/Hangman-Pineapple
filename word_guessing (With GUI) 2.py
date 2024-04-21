@@ -7,9 +7,11 @@ from styles import *
 from tkinter import messagebox  # Import the messagebox class from tkinter for displaying messages
 
 # Assuming you have a file named word_bank.py with categories defined in it
-from word_bank import categories
+from word_bank_old import categories
 
 # Class for the word guessing game, inheriting from tk.Tk
+BACKGROUND_COLOR_PRIMARY = YELLOW
+BACKGROUND_COLOR_SECONDARY = YELLOW
 class WordGuessingGame(tk.Tk):
     def __init__(self):
         super().__init__()  # Call the constructor of the superclass
