@@ -167,6 +167,7 @@ class WordGuessingGame(tk.Tk):
         """Display the category selection screen."""
         self.destroy_current_frame()  # Call a method to destroy the current frame
         self.current_frame = tk.Frame(self, background=YELLOW)  # Create a new frame
+
         self.current_frame.pack()  # Pack the frame into the window
         label = tk.Label(self.current_frame, text="Choose a category:", font=LABEL_FONT,
                          background=YELLOW)  # Create a label widget
@@ -293,18 +294,32 @@ class WordGuessingGame(tk.Tk):
 
         # center_widget(self.current_frame)  # Center the frame in the window
 
+        try:
+            # Open the image using Tkinter's PhotoImage
+            tk_image = tk.PhotoImage(file="STARTbackground1.png")
 
+            # Create a label widget to display the image
+            img_label = tk.Label(self.current_frame, image=tk_image, background=YELLOW)
+            img_label.image = tk_image  # Keep a reference to prevent garbage collection
+
+            # Place the image label at the desired position
+            img_label.grid(row=2, column=0, pady=5)
+
+        except Exception as e:
+            print("Error loading image:", e)
 
         try:
             # Open the image file directly using Tkinter's PhotoImage
             img = tk.PhotoImage(file='pineapple.png')
 
             # Create a label widget to display the image
-            img_label = tk.Label(self.current_frame, image=img, background='cyan')
+            img_label = tk.Label(self.current_frame, image=img, background=CYAN)
             img_label.image = img  # Keep a reference to prevent garbage collection
             img_label.grid(row=2, column=0, pady=5)  # Place the image at desired position
         except Exception as e:
             print("An error occurred:", e)
+
+
 
         # Method to handle alphabet button clicks
     def handle_alphabet_button(self, char, word_label, tries_label, incorrect_guess_label, congrats_label):
