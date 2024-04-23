@@ -89,7 +89,7 @@ class WordGuessingGame(tk.Tk):
 
         try:
             # Open the image using Tkinter's PhotoImage
-            tk_image = tk.PhotoImage(file="menubackground.png")
+            tk_image = tk.PhotoImage(file="menubackground.jpg")
 
             # Create a label widget to display the image
             img_label = tk.Label(self.current_frame, image=tk_image, background='yellow')
