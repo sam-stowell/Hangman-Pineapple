@@ -36,12 +36,12 @@ class WordGuessingGame(tk.Tk):
         self.bind("<Escape>", self.exit_fullscreen)  # Escape key to exit fullscreen mode
 
     def exit_fullscreen(self, event=None):
-        """Exit fullscreen mode."""
+        # Exit fullscreen mode.
         self.attributes('-fullscreen', False)  # Set fullscreen attribute to False
 
     # Method to display the start menu
     def show_start_menu(self):
-        """Display the start menu where the player can start the game."""
+        # Display the start menu where the player can start the game.
         self.reset_game_state()  # Call a method to reset game state
         self.destroy_current_frame()  # Call a method to destroy the current frame
         self.current_frame = tk.Frame(self
@@ -64,7 +64,7 @@ class WordGuessingGame(tk.Tk):
         self.current_frame.pack()  # Pack the frame into the window
         try:
             # Open the image using Tkinter's PhotoImage
-            tk_image = tk.PhotoImage(file="menubackground.png")
+            tk_image = tk.PhotoImage(file="menubackground2.png")
 
             # Create a label widget to display the image
             img_label = tk.Label(self.current_frame, image=tk_image, background='yellow')

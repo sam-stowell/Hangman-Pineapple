@@ -14,8 +14,8 @@ categories = {
     },
     "Books": {
         "Easy": ["Dune", "Harry Potter", "The Hobbit", "The Bible", "Moby-Dick", "Frankenstein", "Walden"],
-        "Medium": ["Sherlock", "Lord of the Rings", "To Kill a Mockingbird", "1984", "The Odyssey", "Robinson Crusoe", "Grimm's Fairy Tales"],
-        "Hard": ["The Great Gatsby", "Pride and Prejudice", "The Catcher in the Rye", "War and Peace", "Crime and Punishment", "Les Misérables", "The Sound and the Fury",
+        "Medium": ["Sherlock", "Lord of the Rings", "To Kill a Mockingbird", "The Odyssey", "Robinson Crusoe", "Grimms Fairy Tales"],
+        "Hard": ["The Great Gatsby", "Pride and Prejudice", "The Catcher in the Rye", "War and Peace", "Crime and Punishment", "Les Miserables", "The Sound and the Fury",
                  "The Brothers Karamazov", "Sense and Sensibility", "Oliver Twist", "The War of the Worlds", "The Canterbury Tales", "Around the World in Eighty Days"]
     },
     "Famous People": {
