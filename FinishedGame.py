@@ -1,6 +1,5 @@
 import random  # Import the random module for generating random choices
 import tkinter as tk  # Import the tkinter module for creating GUI
-from pydoc import text
 
 # Import styles module which presumably contains custom styles
 from styles import *
